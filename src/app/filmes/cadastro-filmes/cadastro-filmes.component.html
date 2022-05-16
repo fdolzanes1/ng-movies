@@ -4,16 +4,21 @@
       <form [formGroup]="cadastro" (ngSubmit)="salvar()" (ngReset)="reiniciar()">
         <mat-card-content>
             <mat-form-field class="full-width">
-              <input matInput placeholder="Título" name="titulo" formControlName="titulo">
+              <input matInput placeholder="Título *" name="titulo" formControlName="titulo">
+              <mat-error *ngIf="validacao.hasErrorValidar(form.titulo, 'required')">Campo Obrigatorio</mat-error>
+              <mat-error *ngIf="validacao.hasErrorValidar(form.titulo, 'minLength')">Campo com minimo 3 caracteres</mat-error>
+              <mat-error *ngIf="validacao.hasErrorValidar(form.titulo, 'maxLength')">Campo com maximo 255 caracteres</mat-error>
             </mat-form-field>
             <mat-form-field class="full-width">
               <input matInput placeholder="Link Foto" name="urlFoto" formControlName="urlFoto">
+              <mat-error *ngIf="validacao.hasErrorValidar(form.titulo, 'required')">Campo Obrigatorio</mat-error>
             </mat-form-field>
             <mat-form-field class="full-width">
-                <input matInput [matDatepicker]="picker" placeholder="Data de Lançamento"
+                <input readonly (click)="picker.open()" matInput [matDatepicker]="picker" placeholder="Data de Lançamento *"
                   name="dtLancamento" formControlName="dtLancamento">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="validacao.hasErrorValidar(form.dtLancamento, 'required')">Campo Obrigatorio</mat-error>
               </mat-form-field>
             <mat-form-field class="full-width">
               <textarea matInput placeholder="Descrição" name="descricao" formControlName="descricao"></textarea>
@@ -25,13 +30,14 @@
               <input matInput placeholder="Link IMDb" name="urlIMDB" formControlName="urlIMDB">
             </mat-form-field>
             <mat-form-field class="full-width">
-              <mat-select placeholder="Gênero" name="genero" formControlName="genero">
+              <mat-select placeholder="Gênero *" name="genero" formControlName="genero">
                 <mat-option value="Ação">Açao</mat-option>
                 <mat-option value="Aventura">Aventura</mat-option>
-                <mat-option value=">Ficção Científica">Ficção Científica</mat-option>
+                <mat-option value="Ficção Científica">Ficção Científica</mat-option>
                 <mat-option value="Romance">Romance</mat-option>
                 <mat-option value="Terror">Terror</mat-option>
               </mat-select>
+              <mat-error *ngIf="validacao.hasErrorValidar(form.titulo, 'required')">Campo Obrigatorio</mat-error>
             </mat-form-field>
         </mat-card-content>
       
